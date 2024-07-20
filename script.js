@@ -31,4 +31,26 @@ document.addEventListener('DOMContentLoaded', () => {
             addTask();
         }
     });
+
+     // Remove task from Local Storage
+     function removeTaskFromLocalStorage(taskText) {
+        let storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        storedTasks = storedTasks.filter(task => task !== taskText);
+        localStorage.setItem('tasks', JSON.stringify(storedTasks));
+    }
+
+    addButton.addEventListener('click', () => {
+        const taskText = taskInput.value.trim();
+        addTask(taskText);
+    });
+
+    taskInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            const taskText = taskInput.value.trim();
+            addTask(taskText);
+        }
+    });
+
+    loadTasks(); // Load tasks when the page is loaded
 });
+
